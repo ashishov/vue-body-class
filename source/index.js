@@ -5,7 +5,7 @@ class VueBodyClassController {
         this.router    = router;
     }
 
-    set router(router)  {
+    set router(router) {
 
         router.beforeEach((to, from, next) => {
 
@@ -14,7 +14,7 @@ class VueBodyClassController {
             var additionalClassName = "";
 
             //is a home page?
-            if(to.path == '/') {
+            if (to.path == '/') {
 
                 additionalClassName = this.updateClassFromRoute(additionalClassName, to);
 
@@ -25,11 +25,11 @@ class VueBodyClassController {
                 for (let index in matched) {
 
                     let routes = parent.children ? parent.children : parent;
-                    let found = this.findMatchInRoutesByPath(routes, matched[index]);
+                    let found  = this.findMatchInRoutesByPath(routes, matched[index]);
 
                     if (found) {
 
-                        parent = found;
+                        parent              = found;
                         additionalClassName = this.updateClassFromRoute(additionalClassName, found);
 
                     }
@@ -47,31 +47,26 @@ class VueBodyClassController {
     }
 
     parseMatched(matchedArray) {
-
         var matched = [];
 
         for (let index in matchedArray) {
-
-            let prev = matched.join('/');
-
-            matched.push(
-
-                matchedArray[index].path
-                    .replace(/^\/|\/$/g, '')
-                    .replace(prev, '')
-                    .replace(/^\/|\/$/g, '')
-
-            );
-
+            if (matchedArray[index].path) {
+                let prev = matched.join('/');
+                matched.push(
+                    matchedArray[index].path
+                        .replace(/^\/|\/$/g, '')
+                        .replace(prev, '')
+                        .replace(/^\/|\/$/g, '')
+                );
+            }
         }
 
         return matched;
-
     }
 
     findMatchInRoutesByPath(routes, matchedItem) {
 
-        return routes.find((o)=> {
+        return routes.find((o) => {
 
             return o.path.replace(/^\/|\/$/g, '') == matchedItem;
 
