@@ -25,6 +25,7 @@ class VueBodyClassController {
                 for (let index in matched) {
 
                     let routes = parent.children ? parent.children : parent;
+                    routes     = false === routes instanceof Array ? [routes] : routes;
                     let found  = this.findMatchInRoutesByPath(routes, matched[index]);
 
                     if (found) {
