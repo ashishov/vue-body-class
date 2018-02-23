@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+  node:
+    image: arkasha/nodejs:latest
+    volumes:
+      - ../:/var/www
